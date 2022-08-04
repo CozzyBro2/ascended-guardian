@@ -34,7 +34,7 @@ local Config = {
 
 -- Check existence of and return content of a given file, or raise errors.
 function Config.readFile(FilePath)
-    p(file_feedback:format('reading', FilePath))
+    print(file_feedback:format('reading', FilePath))
 
     local DoesExist, Err = Filesystem.existsSync(FilePath)
 
@@ -46,7 +46,7 @@ function Config.readFile(FilePath)
         assert(not Err, file_error:format('read', FilePath, Err))
 
         if Text then
-            p(file_feedback:format('read', FilePath))
+            print(file_feedback:format('read', FilePath))
 
             return Text
         end
@@ -55,7 +55,7 @@ end
 
 -- Check existence of and write content to a given file, or raise errors.
 function Config.writeFile(FilePath, NewContents)
-    p(file_feedback:format('writing', FilePath))
+    print(file_feedback:format('writing', FilePath))
 
     local DoesExist, Err = Filesystem.existsSync(FilePath)
 
@@ -67,7 +67,7 @@ function Config.writeFile(FilePath, NewContents)
 
         assert(Success, file_error:format('write', 'bot config json', Err))
 
-        p(file_feedback:format('wrote', FilePath))
+        print(file_feedback:format('wrote', FilePath))
     end
 end
 
