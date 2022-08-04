@@ -4,3 +4,7 @@ deps/
 # Hidden stuff
 *.
 .SECRET
+
+# Logs and such
+gateway.json
+discordia.log
