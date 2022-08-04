@@ -4,6 +4,7 @@ local Module = {}
 
 local Discordia = require('discordia')
 
+local CommandMap = require('commands/meta').CommandMap
 local Parser = require('parser')
 local Config = require('config')
 
@@ -22,6 +23,14 @@ end
 -- Invoked when a user sends a message the bot can see
 local function OnMessageSent(Message)
     local Arguments, Flags = Parser.parseCommand(Message.content)
+
+    local CommandName = Arguments[1]
+    local Command = CommandMap[CommandName]
+
+    if CommandName and Command then
+        -- TODO: spawn this
+        Command.run(Arguments, Flags, Message)
+    end
 end
 
 -- Start the bot, register it, etc.
