@@ -4,7 +4,7 @@ local Module = {}
 
 local Discordia = require('discordia')
 
-local Filesystem = require('fs')
+local Parser = require('parser')
 local Config = require('config')
 
 -- Return token from 'secret' file
@@ -21,7 +21,7 @@ end
 
 -- Invoked when a user sends a message the bot can see
 local function OnMessageSent(Message)
-    p(Message)
+    local Arguments, Flags = Parser.parseCommand(Message.content)
 end
 
 -- Start the bot, register it, etc.

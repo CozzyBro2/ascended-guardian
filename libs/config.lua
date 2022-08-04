@@ -23,6 +23,12 @@ local Config = {
     -- Used to seperate regular command arguments, by default it's '%S+' to match all spaces.
     command_arg_seperator = '%S+',
 
+    -- Used to seperate 'flags', e.g: `ag!die -f`
+    command_flag_seperator = '-',
+
+    -- Used to seperate 'options', e.g: `ag!die --when rightnow`
+    command_option_seperator = '--',
+
     -- Format of the token given to discordia, %s = actual token
     -- Token spec: https://github.com/SinisterRectus/Discordia/wiki/Writing-Your-First-Bot
     token_format = 'Bot %s',
