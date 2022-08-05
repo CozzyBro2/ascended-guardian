@@ -8,7 +8,7 @@ local CommandMap = require('commands/meta').CommandMap
 local Parser = require('parser')
 local Config = require('config')
 
-local command_error_format = [[Command "**%s**" failed with error:
+local command_error_format = [[<@%d>, Command "**%s**" failed with error:
 %s]]
 
 -- Return token from 'secret' file
@@ -37,7 +37,7 @@ local function OnMessageSent(Message)
         local Success, Err = pcall(Command.run, Arguments, Flags, Message)
 
         if not Success then
-            Message:reply(command_error_format:format(CommandName, Err))
+            Message:reply(command_error_format:format(Message.author.id, CommandName, Err))
         end
     end
 end

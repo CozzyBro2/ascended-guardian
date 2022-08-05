@@ -6,6 +6,7 @@ local Module = {}
 local init_list = {
 
     'parser',
+    'commands/kill',
 
 }
 
