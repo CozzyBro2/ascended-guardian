@@ -5,10 +5,11 @@ local Module = {}
 local Discordia = require('discordia')
 local CommandMap = require('commands/meta').CommandMap
 
-local Luv = require('uv')
---local Thread = require('thread')
 local Parser = require('parser')
 local Config = require('config')
+
+local command_error_format = [[Command "**%s**" failed with error:
+%s]]
 
 -- Return token from 'secret' file
 local function ReadToken()
@@ -32,10 +33,11 @@ local function OnMessageSent(Message)
     local Command = CommandMap[CommandName]
 
     if CommandName and Command then
-        local Success, Result = pcall(Command.run, Arguments, Flags, Message)
+        -- I would love for this to be async but idk how :(
+        local Success, Err = pcall(Command.run, Arguments, Flags, Message)
 
         if not Success then
-            Message:reply(Result)
+            Message:reply(command_error_format:format(CommandName, Err))
         end
     end
 end

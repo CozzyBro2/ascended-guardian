@@ -17,16 +17,16 @@ local writable_fields = {
 
 local Config = {
 
-    -- Prefix for calling commands, e.g: 'ag!play apocalyptica til death do us part'.
-    command_prefix = 'ag!',
+    -- Prefix for calling commands, e.g: 'a.play apocalyptica til death do us part'.
+    command_prefix = 'a.',
 
     -- Used to seperate regular command arguments, by default it's '%S+' to match all spaces.
     command_arg_seperator = '%S+',
 
-    -- Used to seperate 'flags', e.g: `ag!die -f`
+    -- Used to seperate 'flags', e.g: `a.die -f`
     command_flag_seperator = '-',
 
-    -- Used to seperate 'options', e.g: `ag!die --when rightnow`
+    -- Used to seperate 'options', e.g: `a.die --when rightnow`
     command_option_seperator = '--',
 
     -- Format of the token given to discordia, %s = actual token
