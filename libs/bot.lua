@@ -24,8 +24,7 @@ end
 local function OnLogin()
     print('Logged in successfully!')
 
-    Bot:setGame(Config.bot_game)
-    Bot:setStatus(Config.bot_status)
+    Module.update()
 end
 
 -- Invoked when a user sends a message the bot can see
@@ -47,6 +46,16 @@ local function OnMessageSent(Message)
             Message:reply(command_error_format:format(Message.author.id, CommandName, Err))
         end
     end
+end
+
+-- Set bot stuff
+function Module.update()
+    local Game = Config.bot_game
+
+    Game.name = Game.name:format(Config.command_prefix)
+
+    Bot:setGame(Game)
+    Bot:setStatus(Config.bot_status)
 end
 
 -- Start the bot, register it, etc.

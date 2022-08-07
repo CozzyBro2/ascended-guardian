@@ -3,10 +3,12 @@
 
     "bot_game": {
 
-
+        "name": "%shelp",
+        "url": "https://github.com/CozzyBro2/ascended-guardian",
+        "type": ""
 
     },
 
-    "bot_status": ""
+    "bot_status": "online"
 
 }

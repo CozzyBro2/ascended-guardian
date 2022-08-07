@@ -20,13 +20,14 @@ local Config = {
     -- Config table for the "Playing: " thing of discord statuses.
     bot_game = {
 
-        name = 'a.help',
+        name = '%shelp',
         url = 'https://github.com/CozzyBro2/ascended-guardian',
+        type = ''
 
     },
 
     -- Status string, determines idle, dnd, etc.
-    bot_status = "",
+    bot_status = "online",
 
     -- Prefix for calling commands, e.g: 'a.play apocalyptica til death do us part'.
     command_prefix = 'a.',
