@@ -6,8 +6,9 @@ local CommandMap = {
     ping = require('./ping'),
     p = require('./ping'),
 
-    kill = require('./kill'),
-    k = require('./kill'),
+    voice = require('./vc'),
+    vc = require('./vc'),
+    v = require('./vc'),
 
 }
 

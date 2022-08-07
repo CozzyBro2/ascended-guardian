@@ -17,6 +17,17 @@ local writable_fields = {
 
 local Config = {
 
+    -- Config table for the "Playing: " thing of discord statuses.
+    bot_game = {
+
+        name = 'a.help',
+        url = 'https://github.com/CozzyBro2/ascended-guardian',
+
+    },
+
+    -- Status string, determines idle, dnd, etc.
+    bot_status = "",
+
     -- Prefix for calling commands, e.g: 'a.play apocalyptica til death do us part'.
     command_prefix = 'a.',
 
@@ -29,12 +40,20 @@ local Config = {
     -- Used to seperate 'options', e.g: `a.die --when rightnow`
     command_option_seperator = '--',
 
+    -- When a problem arises with command, react with this emote
+    command_problem = '❗️',
+
+    -- When the command succeeds.
+    command_success = '✅',
+
     -- Format of the token given to discordia, %s = actual token
     -- Token spec: https://github.com/SinisterRectus/Discordia/wiki/Writing-Your-First-Bot
     token_format = 'Bot %s',
 
     -- Path of the token file
     token_path = '.SECRET',
+
+    subcommand_invalid = 'Invalid sub-command **"%s"** for command **%s**, reflect on your actions.',
 
 }
 

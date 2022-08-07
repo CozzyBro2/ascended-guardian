@@ -3,13 +3,15 @@
 local Module = {}
 
 local Discordia = require('discordia')
-local CommandMap = require('commands/meta').CommandMap
+local CommandMap = require('commands/manager').CommandMap
 
 local Parser = require('parser')
 local Config = require('config')
 
 local command_error_format = [[<@%d>, Command "**%s**" failed with error:
 %s]]
+
+local Bot
 
 -- Return token from 'secret' file
 local function ReadToken()
@@ -21,6 +23,9 @@ end
 -- Invoked when the bot is logged in & ready
 local function OnLogin()
     print('Logged in successfully!')
+
+    Bot:setGame(Config.bot_game)
+    Bot:setStatus(Config.bot_status)
 end
 
 -- Invoked when a user sends a message the bot can see
@@ -37,6 +42,8 @@ local function OnMessageSent(Message)
         local Success, Err = pcall(Command.run, Arguments, Flags, Message)
 
         if not Success then
+            Message:addReaction('❌')
+
             Message:reply(command_error_format:format(Message.author.id, CommandName, Err))
         end
     end
@@ -44,7 +51,7 @@ end
 
 -- Start the bot, register it, etc.
 function Module.start()
-    local Bot = Discordia.Client()
+    Bot = Discordia.Client {bitrate = 96000}
 
     -- Events
     Bot:on('ready', OnLogin)
