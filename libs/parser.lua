@@ -8,7 +8,7 @@ local PrefixName
 local PrefixLen
 
 -- Determine if the message is actually a command, based on the argument.
-local function parsePrefix(Argument)
+local function hasPrefix(Argument)
     local Prefix = Argument:sub(1, PrefixLen)
 
     if Prefix == PrefixName then
@@ -19,15 +19,12 @@ end
 -- Extract arguments from text.
 local function getArguments(Input)
     local Arguments = {}
-
-    local Iterator = Input:gmatch(Config.command_arg_seperator)
     local FoundPrefix = false
 
-    for Argument in Iterator do
+    for Argument in Input:gmatch(Config.command_arg_seperator) do
         -- If we need to get it, get prefix and set the command name to the part after the prefix.
-
         if not FoundPrefix then
-            local IsPrefix = parsePrefix(Argument)
+            local IsPrefix = hasPrefix(Argument)
 
             if IsPrefix then
                 local CommandName = Argument:sub(PrefixLen + 1)
@@ -45,8 +42,10 @@ local function getArguments(Input)
     return Arguments
 end
 
--- Parse the command return a tuple of Arguments & Flags with their values.
+-- Parse the command and return a tuple of Arguments & Flags with their values, or nil if not recognized as a command.
 function Module.parseCommand(Input)
+    if not hasPrefix(Input) then return end
+
     local Arguments = getArguments(Input)
 
     local NewArgs = {}

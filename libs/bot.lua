@@ -32,6 +32,7 @@ local function OnMessageSent(Message)
     if Message.author.bot then return end
 
     local Arguments, Flags = Parser.parseCommand(Message.content)
+    if not Arguments then return end
 
     local CommandName = Arguments[1]
     local Command = CommandMap[CommandName]
@@ -50,7 +51,11 @@ end
 
 -- Set bot stuff
 function Module.update()
-    local Game = Config.bot_game
+    local Game = {}
+
+    for Key, Value in pairs(Config.bot_game) do
+        Game[Key] = Value
+    end
 
     Game.name = Game.name:format(Config.command_prefix)
 
@@ -60,7 +65,7 @@ end
 
 -- Start the bot, register it, etc.
 function Module.start()
-    Bot = Discordia.Client {bitrate = 96000}
+    Bot = Discordia.Client(Config.discordia_client_options)
 
     -- Events
     Bot:on('ready', OnLogin)

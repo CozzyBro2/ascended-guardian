@@ -13,6 +13,9 @@ local writable_fields = {
 
     command_prefix = true,
 
+    bot_game = true,
+    bot_status = true,
+
 }
 
 local Config = {
@@ -22,8 +25,12 @@ local Config = {
 
         name = '%shelp',
         url = 'https://github.com/CozzyBro2/ascended-guardian',
-        type = ''
+        type = 2,
 
+    },
+
+    discordia_client_options = {
+        bitrate = 96000,
     },
 
     -- Status string, determines idle, dnd, etc.

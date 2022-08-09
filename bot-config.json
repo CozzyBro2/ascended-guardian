@@ -1,14 +1,1 @@
-{
-    "command_prefix": "a.",
-
-    "bot_game": {
-
-        "name": "%shelp",
-        "url": "https://github.com/CozzyBro2/ascended-guardian",
-        "type": ""
-
-    },
-
-    "bot_status": "online"
-
-}
+{"bot_game":{"name":"%shelp","type":2,"url":"https://github.com/CozzyBro2/ascended-guardian"},"command_prefix":"a.","bot_status":"online"}
