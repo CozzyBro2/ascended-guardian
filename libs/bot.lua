@@ -3,7 +3,9 @@
 local Module = {}
 
 local Discordia = require('discordia')
+
 local CommandMap = require('commands/manager').CommandMap
+local Voice = require('commands/vc')
 
 local Parser = require('parser')
 local Config = require('config')
@@ -24,6 +26,7 @@ end
 local function OnLogin()
     print('Logged in successfully!')
 
+    Voice.update(Bot)
     Module.update()
 end
 
