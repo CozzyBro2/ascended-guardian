@@ -8,3 +8,6 @@ deps/
 # Logs and such
 gateway.json
 discordia.log
+
+# Binaries
+lavalink

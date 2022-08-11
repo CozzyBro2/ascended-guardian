@@ -3,23 +3,19 @@ local Module = {}
 local Subcommands = {}
 
 local Config = require('config')
-local Lavalink = require('discordia-lavalink')
+local ConnectionsMap = {}
 
-local VoiceManager = Lavalink.VoiceManager
-
-local LavalinkNodes = {
-	{
-        host = '127.0.0.1',
-        port = 2333,
-        password = 'polyphiagoatisagreatdemonstrationofguitarskill'
-    }
-}
-
-local ActiveManager
+local Manager
 
 function Subcommands.join(Arguments, Flags, Message)
     local IdFromFlag = Arguments[3] or Flags['--id']
+    local GuildId = Message.guild.id
+
     local Channel
+
+    if ConnectionsMap[GuildId] then
+        Subcommands.leave(Arguments, Flags, Message)
+    end
 
     if tonumber(IdFromFlag) then
         Channel = Message.guild:getChannel(IdFromFlag)
@@ -28,12 +24,10 @@ function Subcommands.join(Arguments, Flags, Message)
     end
 
     if not Channel then
-        Message:addReaction(Config.command_problem)
-
-        return Message:reply("You're not in a vc, or could not find the channel you specified")
+        error("You're not in a vc, or could not find the channel you specified", 0)
     end
 
-    ActiveManager:join(Channel)
+    Manager:join(Channel)
 end
 
 function Subcommands.leave(_, _, Message)
@@ -45,7 +39,7 @@ function Subcommands.leave(_, _, Message)
         return Message:reply("I don't appear to be in a voice channel.")
     end
 
-    ActiveManager:leave(Channel)
+    Manager:leave(Channel)
 end
 
 function Module.run(Arguments, Flags, Message)
@@ -59,13 +53,17 @@ function Module.run(Arguments, Flags, Message)
     end
 end
 
-function Module.update(Bot)
-    ActiveManager = VoiceManager(Bot, LavalinkNodes)
+function Module.update()
+    Manager = require('bot').VoiceManager
+
+    require('./audio').update()
 end
 
 Subcommands.hopon = Subcommands.join
 Subcommands.enter = Subcommands.join
 Subcommands.e = Subcommands.join
 Subcommands.j = Subcommands.join
+
+Module.ConnectionsMap = ConnectionsMap
 
 return Module

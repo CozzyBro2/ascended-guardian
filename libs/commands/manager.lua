@@ -8,6 +8,10 @@ local CommandMap = {
 
     prefix = require('./prefix'),
 
+    player = require('./audio'),
+    audio = require('./audio'),
+    a = require('./audio'),
+
     voice = require('./vc'),
     vc = require('./vc'),
     v = require('./vc'),

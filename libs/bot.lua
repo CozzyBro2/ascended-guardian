@@ -3,6 +3,7 @@
 local Module = {}
 
 local Discordia = require('discordia')
+local Lavalink = require('discordia-lavalink')
 
 local CommandMap = require('commands/manager').CommandMap
 local Voice = require('commands/vc')
@@ -12,6 +13,14 @@ local Config = require('config')
 
 local command_error_format = [[<@%d>, Command "**%s**" failed with error:
 %s]]
+
+local LavalinkNodes = {
+	{
+        host = '127.0.0.1',
+        port = 2333,
+        password = 'polyphiagoatisagreatdemonstrationofguitarskill'
+    }
+}
 
 local Bot
 
@@ -26,8 +35,10 @@ end
 local function OnLogin()
     print('Logged in successfully!')
 
-    Voice.update(Bot)
+    Module.VoiceManager = Lavalink.VoiceManager(Bot, LavalinkNodes)
     Module.update()
+
+    Voice.update()
 end
 
 -- Invoked when a user sends a message the bot can see
