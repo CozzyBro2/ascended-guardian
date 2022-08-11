@@ -28,6 +28,7 @@ function Subcommands.join(Arguments, Flags, Message)
     end
 
     Manager:join(Channel)
+    ConnectionsMap[GuildId] = Manager:getPlayer(Channel)
 end
 
 function Subcommands.leave(_, _, Message)
@@ -38,6 +39,8 @@ function Subcommands.leave(_, _, Message)
 
         return Message:reply("I don't appear to be in a voice channel.")
     end
+
+    ConnectionsMap[Message.guild.id] = nil
 
     Manager:leave(Channel)
 end
@@ -56,7 +59,7 @@ end
 function Module.update()
     Manager = require('bot').VoiceManager
 
-    require('./audio').update()
+    require('./audio').update(Manager)
 end
 
 Subcommands.hopon = Subcommands.join
